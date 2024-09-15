@@ -1,0 +1,88 @@
+﻿<Window x:Class="ImageSlider.MainWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:local="clr-namespace:ImageSlider"
+           mc:Ignorable="d"
+           Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Frame x:Name="ImageSlider" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Margin="10"/>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <Border Margin="5" BorderBrush="Black" BorderThickness="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding AvailableImages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Transparent" BorderThickness="2" Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                        <Image Source="{Binding PathImage}" Height="50" MouseDown="AvailableImage_MouseDown"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Border Margin="5" BorderBrush="Black" BorderThickness="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding SelectedImages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Blue" BorderThickness="2" Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding PathImage}" Height="60" MouseDown="SelectedImage_MouseDown"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Margin="10,5">
+                <CheckBox x:Name="PlayRandomCheckBox" Content="Play random" IsChecked="False" Checked="PlayRandomCheckBox_Checked"/>
+            </StackPanel>
+
+            <UniformGrid Grid.Column="1" Rows="1" VerticalAlignment="Center" Margin="5">
+                <Button Content="Start" Margin="2,0" Click="StartButton_Click"/>
+                <Button Content="Stop" Margin="2,0" Click="StopButton_Click"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Column="2" Rows="1" VerticalAlignment="Center" Margin="5">
+                <Button Content="Previous" Margin="2,0" Click="PreviousButton_Click"/>
+                <Button Content="Next" Margin="2,0" Click="NextButton_Click"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Column="3" Rows="1" VerticalAlignment="Center" Margin="5">
+                <Button Content="Add" Margin="2,0" Click="AddImage_Click"/>
+                <Button Content="Remove" Margin="2,0" Click="RemoveImage_Click"/>
+            </UniformGrid>
+        </Grid>
+    </Grid>
+</Window>
